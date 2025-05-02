@@ -1,0 +1,19 @@
+log:
+  level: INFO
+
+api:
+  dashboard: true
+  insecure: false            # quítalo o protégelo en producción
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+providers:
+  docker:
+    exposedByDefault: false # sólo publica contenedores con label explicit
+  file:
+    directory: /etc/traefik/dynamic
+    watch: true

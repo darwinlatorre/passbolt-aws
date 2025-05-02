@@ -1,0 +1,22 @@
+version: "3.9"
+
+networks:
+  proxy:
+    external: false
+
+services:
+  traefik:
+    image: traefik:v3.3.6
+    container_name: traefik
+    restart: unless-stopped
+    networks:
+      - proxy
+    ports:
+      - "80:80"             # HTTP
+      - "443:443"           # HTTPS
+    #  - "8080:8080"         # dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik/dynamic:/etc/traefik/dynamic:ro
+      - ./certs:/certs:ro
